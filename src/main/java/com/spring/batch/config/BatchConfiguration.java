@@ -21,7 +21,6 @@ import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.file.transform.FieldExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -57,7 +56,7 @@ public class BatchConfiguration extends DefaultBatchConfiguration {
     public FlatFileItemReader<Person> reader() {
         return new FlatFileItemReaderBuilder<Person>()
                 .name("personItemReader")
-                .resource(new ClassPathResource("sample-data.csv")) // Input file
+                .resource(new FileSystemResource("sample-data.csv")) // Input file
                 .delimited()
                 .names("index", "userId", "firstName", "lastName", "sex", "email", "phone", "dateOfBirth", "jobTitle")
                 .fieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
@@ -100,7 +99,7 @@ public class BatchConfiguration extends DefaultBatchConfiguration {
                 .reader(reader())
                 .processor(processor()) // Optional
                 .writer(writer())
-                // .taskExecutor(taskExecutor())
+                 .taskExecutor(taskExecutor())
                 .listener(customStepExecutionListener)
                 .build();
     }

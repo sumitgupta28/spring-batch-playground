@@ -1,14 +1,13 @@
 package com.spring.batch.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-@NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class Person {
     private String index;
     private String userID;
@@ -20,4 +19,19 @@ public class Person {
     private String dateOfBirth;
     private String jobTitle;
 
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(index)
+                .append(userID)
+                .append(firstName)
+                .append(lastName)
+                .append(sex)
+                .append(email)
+                .append(phone)
+                .append(dateOfBirth)
+                .append(jobTitle)
+                .toString();
+    }
 }
